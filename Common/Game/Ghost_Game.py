@@ -6,14 +6,49 @@ names_path = Path("Common/Leaderboards/Leaderboard_Names.txt")
 score_path = Path("Common/Leaderboards/Leaderboard_Scores.txt")
 highscores_name = names_path.read_text()
 highscores_score = score_path.read_text()
-highscores_name = highscores_name.split(",")
-highscores_score = highscores_score.split(",")
+highscores_name_list = highscores_name.split(",")
+highscores_score_list = highscores_score.split(",")
 #Game start, set up variables and get users name
 print("Ghost Game")
 feeling_brave = True
 num_input = False
 score = 0
 name = input("Please enter your name: ").lower()
+def Play_Again(highscores_name, highscores_score):
+    again = input("Play again? y/n ")
+    if again == "y":
+        print("Ghost Game")
+        score = 0
+        num_input = False
+        feeling_brave = True
+    elif again == "n":
+        print("Not brave enough huh?")
+        print("Come back when you're brave enough to try again.")
+        #Show the highscores from the leaderboard
+        for i in range(1,10):
+            if score >= int(highscores_score[i]):
+                print("New highscore!")
+                highscores_name.insert((i), name)
+                highscores_score.insert((i), score)
+                highscores_name.pop()
+                highscores_score.pop()
+                break
+        for i in range(11):
+            print(highscores_name[i], "\t", highscores_score[i])
+            file_open = open("Leaderboard_Names.txt", "w")
+            highscores_name = str(highscores_name).replace("[", "")
+            highscores_name = highscores_name.replace("]", "")
+            highscores_name = highscores_name.replace("'", "")
+            highscores_name = highscores_name.replace(" ", "")
+            highscores_name = file_open.write(highscores_name)
+            file_open.close()
+            file_open = open("Leaderboard_Scores.txt", "w")
+            highscores_score = str(highscores_score).replace("[", "")
+            highscores_score = highscores_score.replace("]", "")
+            highscores_score = highscores_score.replace("'", "")
+            highscores_score = highscores_score.replace(" ", "")
+            highscores_score = file_open.write(highscores_score)
+            file_open.close()
 #Start the game loop
 while feeling_brave:
     ghost_door = randint(1,3)
@@ -104,49 +139,16 @@ while feeling_brave:
           print("Run away!")
           print("Game Over! " + name + " scored: ", score, end=".\n")
           #Check if user wants to try again, if yes reset loop and if no end game
-          again = input("Play again? y/n ")
-          if again == "y":
-             print("Ghost Game")
-             score = 0
-             num_input = False
-             feeling_brave = True
-          else:
-             print("Not brave enough huh?")
-             print("Come back when you're brave enough to try again.")
-             #Show the highscores from the leaderboard
-             for i in range(1,10):
-                 if score >= int(highscores_score[i]):
-                     print("New highscore!")
-                     highscores_name.insert((i), name)
-                     highscores_score.insert((i), score)
-                     highscores_name.pop()
-                     highscores_score.pop()
-                     break
-             for i in range(11):
-                 print(highscores_name[i], "\t", highscores_score[i])
-             file_open = open("Leaderboard_Names.txt", "w")
-             highscores_name = str(highscores_name).replace("[", "")
-             highscores_name = highscores_name.replace("]", "")
-             highscores_name = highscores_name.replace("'", "")
-             highscores_name = highscores_name.replace(" ", "")
-             highscores_name = file_open.write(highscores_name)
-             file_open.close()
-             file_open = open("Leaderboard_Scores.txt", "w")
-             highscores_score = str(highscores_score).replace("[", "")
-             highscores_score = highscores_score.replace("]", "")
-             highscores_score = highscores_score.replace("'", "")
-             highscores_score = highscores_score.replace(" ", "")
-             highscores_score = file_open.write(highscores_score)
-             file_open.close()
+          Play_Again(highscores_name_list, highscores_score_list)        
         else:
-             print("No ghost!")
-             print("You enter the next room.")
-             num_input = False
-             #Add points to score total and continue game
-             if door_num != door_hint and door_hint != ghost_door:
-                 score = score + 2
-             else:
-                 score = score + 1
+            print("No ghost!")
+            print("You enter the next room.")
+            num_input = False
+            #Add points to score total and continue game
+            if door_num != door_hint and door_hint != ghost_door:
+                score = score + 2
+            else:
+                score = score + 1
     else:
         print("Press 1, 2 or 3 to continue.")
         #Reset and continue from game loop
