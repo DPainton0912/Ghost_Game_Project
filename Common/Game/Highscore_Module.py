@@ -1,9 +1,9 @@
 from pathlib import Path
 def Return_Score_Path():
-  score_path = Path("Leaderboards/Leaderboard_Scores.txt")
+  score_path = Path("Common/Leaderboards/Leaderboard_Scores.txt")
   return(score_path)
 def Return_Name_Path():
-  names_path = Path("Leaderboards/Leaderboard_Names.txt")
+  names_path = Path("Common/Leaderboards/Leaderboard_Names.txt")
   return(names_path)
 def List_Concanating(InputList):
   unrefined_List = InputList
