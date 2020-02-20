@@ -1,6 +1,6 @@
 import Checking_Module
 def Get_Player_name():
-  name = input("Please enter your name: ").lower()
+  name = input("Please enter your name: ").lower().capitalize()
   return (str(name))
 def Get_Player_Door_input():
   num_input = False
