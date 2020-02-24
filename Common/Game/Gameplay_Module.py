@@ -3,6 +3,7 @@ import Hint_Module
 import Checking_Module
 import Input_Module
 import Highscore_Module
+import Minigame_Saying_Module
 def Play_Again(Score,Pname):
   acceptedinput = False
   while acceptedinput == False:
@@ -36,11 +37,12 @@ def Play_game():
   print("Ghost Game")
   PName = Input_Module.Get_Player_name()
   ghost_door = randint(1,3)
-  hint_door = Hint_Module.Display_Hint(ghost_door)
+  minigame_result = Minigame_Saying_Module.Minigame_Saying_Start()
+  hint_door = Hint_Module.Display_Hint(ghost_door, minigame_result)
   result = int(Checking_Module.Check_Door_Result(ghost_door,hint_door))
   while result != 2:
     score = score + Safe_Found(result)
-    hint_door = Hint_Module.Display_Hint(ghost_door)
+    hint_door = Hint_Module.Display_Hint(ghost_door, minigame_result)
     result = int(Checking_Module.Check_Door_Result(ghost_door, hint_door))
   restart = Ghost_Found(score,PName)
   return (restart)
