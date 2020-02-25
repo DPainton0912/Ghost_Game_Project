@@ -15,5 +15,5 @@ def Get_Player_Door_input():
     except:
       print("Please input a either 1, 2 or 3!")
 def Get_Player_Saying_Answer():
-  player_answer = input("what is the missing word? ").strip.lower
+  player_answer = input("What is the missing word? ").strip().lower()
   return player_answer
